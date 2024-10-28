@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import argparse
 
 
 def resize(img: np.ndarray, longer_side: int = 1000) -> np.ndarray:
@@ -17,6 +18,7 @@ def resize(img: np.ndarray, longer_side: int = 1000) -> np.ndarray:
     resized_img = cv2.resize(img, (int(width * scaling), int(height * scaling)))
     return resized_img
 
+
 def open_img(file_name: str, conversion_flag: int = cv2.COLOR_BGR2GRAY) -> tuple[np.ndarray, np.ndarray]:
     """Opens image from the filename in the project's `imgs` directory.
 
@@ -28,9 +30,7 @@ def open_img(file_name: str, conversion_flag: int = cv2.COLOR_BGR2GRAY) -> tuple
         tuple[np.ndarray, np.ndarray]: tuple of the requested image and the coverted one.
     """
 
-    path = f"./projects/clocks/imgs/{file_name}"
-
-    image   = cv2.imread(path)
+    image   = cv2.imread(file_name)
     image   = resize(image)
     gray    = cv2.cvtColor(image, conversion_flag)
 
@@ -323,12 +323,12 @@ def get_time(hour_a: float, minute_a: float, second_a: float | None) -> str:
     """Obtains time from the angles of the hands.
 
     Args:
-     hour_a (float): Angle of the hour hand.
-     minute_a (float): Angle of the minute hand.
-     second_a (float | None): Angle of the second hand.
+        hour_a (float): Angle of the hour hand.
+        minute_a (float): Angle of the minute hand.
+        second_a (float | None): Angle of the second hand.
 
     Retuns:
-     time (str): Formatted string of the extracted time.
+        time (str): Formatted string of the extracted time.
     """
     hour = hour_a / 30
     minute = minute_a / 6
@@ -404,4 +404,8 @@ def detect_time_gray(file_name: str):
 
 
 if __name__ == "__main__":
-    detect_time_gray("clock1.jpg")
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-i", "--image", help="path to the image")
+    args = vars(ap.parse_args())
+
+    detect_time_gray(args['image'])
