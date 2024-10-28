@@ -320,16 +320,16 @@ def get_angle(hand: tuple, clock_y: int) -> float:
 
 
 def get_time(hour_a: float, minute_a: float, second_a: float | None) -> str:
-  """Obtains time from the angles of the hands.
+    """Obtains time from the angles of the hands.
 
-  Args:
-    hour_a (float): Angle of the hour hand.
-    minute_a (float): Angle of the minute hand.
-    second_a (float | None): Angle of the second hand.
+    Args:
+     hour_a (float): Angle of the hour hand.
+     minute_a (float): Angle of the minute hand.
+     second_a (float | None): Angle of the second hand.
 
-  Retuns:
-    time (str): Formatted string of the extracted time.
-  """
+    Retuns:
+     time (str): Formatted string of the extracted time.
+    """
     hour = hour_a / 30
     minute = minute_a / 6
     second = second_a / 6
@@ -360,6 +360,11 @@ def get_time(hour_a: float, minute_a: float, second_a: float | None) -> str:
 
 
 def detect_time_gray(file_name: str):
+    """Tries its best to find the time from the image.
+
+    Args:
+        file_name (str): Name of the image.    
+    """
 
     # > Pre-processing of the image
     img, img_gray = open_img(file_name)
@@ -399,4 +404,4 @@ def detect_time_gray(file_name: str):
 
 
 if __name__ == "__main__":
-    detect_time_gray("shadow.png")
+    detect_time_gray("clock1.jpg")
