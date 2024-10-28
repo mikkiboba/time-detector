@@ -4,7 +4,7 @@ import argparse
 
 
 def resize(img: np.ndarray, longer_side: int = 1000) -> np.ndarray:
-    """Resized an image.
+    """Resizes an image.
 
     Args:
         img (np.ndarray): Image to resize.
